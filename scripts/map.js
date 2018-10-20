@@ -13,6 +13,10 @@ let followingUser = true;
 
 const initMap = () => {
     createMap();
+
+    window.addEventListener('resize', function () {
+        map.getViewPort().resize(); 
+    });
     
     getUserLocation(trackUser);
     watchUserLocation(trackUser);
