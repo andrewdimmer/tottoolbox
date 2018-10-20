@@ -1,3 +1,5 @@
+var filters;
+
 function toggleFilterPane() {
     document.getElementById("filterContainerSuper").style.display = "block";
     document.getElementById("mapContainerSuper").style.display = "none";
@@ -27,3 +29,19 @@ function prepopulateAddress() {
         }, function(error) {addBadMessage(error);});
     });
 }
+
+function updateFilters() {
+    filters = {
+        "chocolate": document.forms["filter"].elements["chocolate"].value,
+        "candy": document.forms["filter"].elements["candy"].value,
+        "food": document.forms["filter"].elements["food"].value,
+        "other": document.forms["filter"].elements["other"].value,
+        "home": document.forms["filter"].elements["home"].value,
+        "king": document.forms["filter"].elements["king"].value,
+        "teal": document.forms["filter"].elements["teal"].value
+    }
+    console.log(filters);
+}
+
+// Initialize filters on page load
+setTimeout(function() {updateFilters();}, 500);
