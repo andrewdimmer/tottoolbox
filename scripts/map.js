@@ -55,3 +55,25 @@ const getUserLocation = (cb) => {
         cb(null);
     }
 }
+
+let geocoder;
+const getLocationOfAddress = (address, cb, ce) => {
+    // Get an instance of the geocoding service:
+    if (!geocoder) {
+        geocoder = platform.getGeocodingService();
+    }
+
+    if (!ce) {
+        ce = (e) => console.error(e);
+    }
+
+    // Create the parameters for the geocoding request:
+    var geocodingParams = {
+        searchText: address
+    };
+
+    // Call the geocode method with the geocoding parameters,
+    // the callback and an error callback function (called if a
+    // communication error occurs):
+    geocoder.geocode(geocodingParams, cb, ce);
+}
