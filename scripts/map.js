@@ -78,6 +78,16 @@ const removeMarker = (marker) => {
     map.removeObject(marker);
 }
 
+const getUserLocation = (cb) => {
+    if (geolocationServiceIsAvailable()) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => cb({lat: pos.coords.latitude, lng: pos.coords.longitude}),
+            () => alert('unable to find you!'),
+            {enableHighAccuracy: true}
+        );
+    }
+}
+
 const watchUserLocation = (cb) => {
     if (geolocationServiceIsAvailable()) {
         navigator.geolocation.watchPosition(
