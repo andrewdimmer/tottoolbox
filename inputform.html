@@ -1,9 +1,9 @@
-<form>
+<form name="updateHouse">
     <h1>Address</h1>
-    <input type="text" name="address" placeholder="Street Address" />
+    <input type="text" name="street" placeholder="Street Address" />
     <input type="text" name="town" placeholder="Town" />
     <select name="state">
-        <option disabled>State</option>
+        <option value="state">State</option>
         <option value="Alabama">Alabama</option>
         <option value="Alaska">Alaska</option>
         <option value="Arizona">Arizona</option>
@@ -57,16 +57,16 @@
     </select>
     <input type="number" name="zipcode" placeholder="Zip Code" />
     <h1>Candy</h1>
-    <p><input type="checkbox" name="chocolate" value="true" />Chocolate</p>
-    <p><input type="checkbox" name="candy" value="true" />Candy (gummy candy, hard candy, etc.)</p>
-    <p><input type="checkbox" name="food" value="true" />Food (pretzels, chips, fruits, etc.)</p>
-    <p><input type="checkbox" name="other" value="true" />Other</p>
-    <p><input type="checkbox" name="none" value="true" />Not Home/Out of Candy</p>
+    <p><input type="checkbox" name="chocolate" />Chocolate</p>
+    <p><input type="checkbox" name="candy" />Candy (gummy candy, hard candy, etc.)</p>
+    <p><input type="checkbox" name="food" />Food (pretzels, chips, fruits, etc.)</p>
+    <p><input type="checkbox" name="other" />Other</p>
+    <p><input type="checkbox" name="none" />Not Home/Out of Candy</p>
     <h2>King Sized</h2>
-    <p><input type="checkbox" name="king" value="true" />King Sized</p>
+    <p><input type="checkbox" name="king" />King Sized</p>
     <h1>Teal Pumpkin Project</h1>
     <p>Info here</p>
-    <p><input type="checkbox" name="teal" value="true" />Teal Pumpkin House</p>
-    <input type="submit" onclick="submitData();" />
+    <p><input type="checkbox" name="teal" />Teal Pumpkin House</p>
+    <input type="button" onclick="submitData();" value="Submit" />
     <input type="reset" />
 </form>
