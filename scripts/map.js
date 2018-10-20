@@ -45,6 +45,12 @@ const createMap = (center) => {
         }
     );
 
+    // Enable the event system on the map instance (enable click and drag)
+    let mapEvents = new H.mapevents.MapEvents(map);
+
+    // Instantiate the default behavior, providing the mapEvents object
+    let behavior = new H.mapevents.Behavior(mapEvents);
+
     mapUi = H.ui.UI.createDefault(map, defaultLayers);
 }
 
