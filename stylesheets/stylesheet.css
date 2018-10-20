@@ -175,3 +175,9 @@ input[type=button], input[type=reset] {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+#mapContainer {
+    width: 100%;
+    height: calc(100vh - 76px - 56px);
+    margin: 0px;
+}
