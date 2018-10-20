@@ -10,11 +10,13 @@ let map;
 let mapUi;
 
 window.onload = () => {
-    initMap();
-    addMarker(52.60, 13.50);
+    getUserLocation((userLoc) => {
+        initMap(userLoc);
+        addMarker(userLoc);
+    });
 }
 
-const initMap = () => {
+const initMap = (center) => {
     platform = new H.service.Platform({
         'app_id': MapAppId,
         'app_code': MapAppCode
@@ -31,16 +33,25 @@ const initMap = () => {
         defaultLayers.normal.map,
         {
             zoom: 10,
-            center: { lat: 52.5, lng: 13.4 }
+            center: center
         }
     );
 
     mapUi = H.ui.UI.createDefault(map, defaultLayers);
 }
 
-const addMarker = (lat, lng) => {
-    map.addObject(new H.map.Marker({
-        lat: lat,
-        lng: lng
-    }));
+const addMarker = (loc) => {
+    map.addObject(new H.map.Marker(loc));
+}
+
+const getUserLocation = (cb) => {
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => cb({lat: pos.coords.latitude, lng: pos.coords.longitude}),
+            () => alert('unable to find you!'),
+            {enableHighAccuracy: true}
+        );
+    } else {
+        cb(null);
+    }
 }
