@@ -14,6 +14,18 @@ function initializeFirebase() {
 // Ensures that firebase is initialized on all pages
 initializeFirebase();
 
+var db;
+function initializeDatabase() {
+    // Initialize Cloud Firestore through Firebase
+    db = firebase.firestore();
+
+    // Disable deprecated features
+    db.settings({
+      timestampsInSnapshots: true
+    });
+}
+initializeDatabase();
+
 function submitData() {
     console.log(Date(Date.now()));
     var dateStamp = new Date(Date.now()).toJSON();
@@ -36,24 +48,21 @@ function submitData() {
     
     if (street != "" && town != "" && state != "state" && zipcode > 9999) {
         if (chocolate || candy || food || other || none) {
-            var json = {
-                "datestamp": dateStamp,
-                "address": {
-                    "street": street,
-                    "town": town,
-                    "state": state,
-                    "zipcode": zipcode,
-                },
-                "candy": {
-                    "chocolate": chocolate,
-                    "candy": candy,
-                    "food": food,
-                    "other": other,
-                },
+            var address = {
+                "street": street,
+                "town": town,
+                "state": state,
+                "zipcode": zipcode,
+            };
+            var candy = {
+                "chocolate": chocolate,
+                "candy": candy,
+                "food": food,
+                "other": other,
                 "home": !none,
                 "king": king,
                 "teal":teal,
-            }
+            };
             console.log(json);
             addGoodMessage("Thank you! Update successful!");
             
@@ -76,4 +85,49 @@ function submitData() {
         addBadMessage("Error: Please make sure all fields in the address are filled in.")
     }
     
+}
+
+function addDataToDatabase(payload) {
+    var user = db.collection("users").doc(firebase.auth().currentUser.uid);
+    
+    var one = user.get().then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            var userData = doc.data();
+            userData.dateTime.unshift(dateTime);
+            userData.keyword.unshift(keyword);
+            db.collection("users").doc(firebase.auth().currentUser.uid).set({
+                dateTime: userData.dateTime,
+                keyword: userData.keyword
+            })
+            .then(function() {
+                console.log("Document successfully written!");
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+        } else {
+            db.collection("users").doc(firebase.auth().currentUser.uid).set({
+                dateTime: [dateTime],
+                keyword: [keyword]
+            })
+            .then(function() {
+                console.log("Document successfully written!");
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+    
+    var dataID = firebase.auth().currentUser.uid + "-" + dateTime;
+    var two = db.collection("results").doc(dataID).set({
+        graphData: graphResponse,
+        searchData: searchResponse
+    }).then(function() { console.log("wrote to results"); });
+    
+    
+    return Promise.all([one, two]).then(function() { return dataID; });
 }
