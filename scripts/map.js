@@ -18,7 +18,10 @@ const initMap = () => {
         if (userMarker != null) {
             removeMarker(userMarker);
         }
-        userMarker = addMarker(userLoc);
+        userMarker = addMarker(userLoc, null, () => {
+            followingUser = true;
+            map.setCenter(userLoc);
+        });
 
         if (followingUser) {
             map.setCenter(userLoc);
@@ -68,8 +71,10 @@ const createMap = () => {
     mapUi = H.ui.UI.createDefault(map, defaultLayers);
 }
 
-const addMarker = (loc) => {
-    const newMarker = new H.map.Marker(loc);
+const addMarker = (loc, icon, onClick) => {
+    const newMarker = new H.map.Marker(loc, {zIndex:100});
+    newMarker.addEventListener('tap', onClick);
+
     map.addObject(newMarker);
     return newMarker;
 }
