@@ -107,15 +107,7 @@ const geolocationServiceIsAvailable = () => {
     }
 }
 
-let geocoder;
 const getLocationOfAddress = (address, cb, ce) => {
-    platform = getPlatform();
-
-    // Get an instance of the geocoding service:
-    if (!geocoder) {
-        geocoder = platform.getGeocodingService();
-    }
-
     if (!ce) {
         ce = (e) => console.error(e);
     }
@@ -126,7 +118,35 @@ const getLocationOfAddress = (address, cb, ce) => {
     };
 
     // Call the geocode method with the geocoding parameters,
-    // the callback and an error callback function (called if a
-    // communication error occurs):
+    // the callback and an error callback function (called if a communication error occurs)
+    const geocoder = getGeocoder();
     geocoder.geocode(geocodingParams, cb, ce);
+}
+
+const getAddressOfLocation = (loc, cb, ce) => {
+    if (!ce) {
+        ce = (e) => console.error(e);
+    }
+
+    // Create the parameters for the reverse geocoding request:
+    let params = {
+        prox: loc.lat + ',' + loc.lng + ',' + '150',
+        mode: 'retrieveAddresses',
+        maxresults: 1
+    };
+
+    // Call the geocode method with the geocoding parameters,
+    // the callback and an error callback function (called if a communication error occurs)
+    const geocoder = getGeocoder();
+    geocoder.reverseGeocode(params, cb, ce);
+}
+
+let _geocoder;
+const getGeocoder = () => {
+    // Get an instance of the geocoding service:
+    if (!_geocoder) {
+        _geocoder = getPlatform().getGeocodingService();
+    }
+
+    return _geocoder;
 }
