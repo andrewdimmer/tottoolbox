@@ -13,20 +13,23 @@ let followingUser = true;
 
 const initMap = () => {
     createMap();
-       
-    watchUserLocation(userLoc => {
-        if (userMarker != null) {
-            removeMarker(userMarker);
-        }
-        userMarker = addMarker(userLoc, null, () => {
-            followingUser = true;
-            map.setCenter(userLoc);
-        });
+    
+    getUserLocation(trackUser);
+    watchUserLocation(trackUser);
+}
 
-        if (followingUser) {
-            map.setCenter(userLoc);
-        }
+const trackUser = (userLoc) => {
+    if (userMarker != null) {
+        removeMarker(userMarker);
+    }
+    userMarker = addMarker(userLoc, null, () => {
+        followingUser = true;
+        map.setCenter(userLoc);
     });
+
+    if (followingUser) {
+        map.setCenter(userLoc);
+    }
 }
 
 let _platform;
