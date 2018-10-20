@@ -24,7 +24,6 @@ function prepopulateAddress() {
             document.getElementById("city").value = address.City;
             document.getElementById("state").value = address.AdditionalData[1].value;
             document.getElementById("zipcode").value = address.PostalCode;
-            addGoodMessage("Retrieved City, State, and Zip Code")
         }, function(error) {addBadMessage(error);});
     });
 }
