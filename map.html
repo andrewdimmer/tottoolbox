@@ -2,8 +2,18 @@
 <html>
 <head>
     <title>Map Page</title>
+
+    <!--HERE scripts-->
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css"href="http://js.api.here.com/v3/3.0/mapsjs-ui.css" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+    <!--Our scripts-->
+    <script src="../scripts/map/map.js"></script>
 </head>
-<body>
-    
+<body style="height:100vh;width:100vw;margin:0;">
+    <div id="mapContainer" style="height:100vh;width:100vw;margin:0;"></div>
 </body>
 </html>
