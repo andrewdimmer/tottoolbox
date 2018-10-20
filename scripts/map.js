@@ -8,10 +8,19 @@ let mapContainerElement;
 let map;
 let mapUi;
 
+let userMarker;
+
 const initMap = () => {
     getUserLocation((userLoc) => {
         createMap(userLoc);
-        addMarker(userLoc);
+        userMarker = addMarker(userLoc);
+        
+        watchUserLocation(userLoc => {
+            if (userMarker != null) {
+                removeMarker(userMarker);
+            }
+            addMarker(userLoc);
+        });
     });
 }
 
@@ -40,7 +49,7 @@ const createMap = (center) => {
         mapContainerElement,
         defaultLayers.normal.map,
         {
-            zoom: 10,
+            zoom: 15,
             center: center
         }
     );
@@ -65,14 +74,31 @@ const removeMarker = (marker) => {
 }
 
 const getUserLocation = (cb) => {
-    if ('geolocation' in navigator) {
+    if (geolocationServiceIsAvailable()) {
         navigator.geolocation.getCurrentPosition(
             (pos) => cb({lat: pos.coords.latitude, lng: pos.coords.longitude}),
             () => alert('unable to find you!'),
             {enableHighAccuracy: true}
         );
+    }
+}
+
+const watchUserLocation = (cb) => {
+    if (geolocationServiceIsAvailable()) {
+        navigator.geolocation.watchPosition(
+            (pos) => cb({lat: pos.coords.latitude, lng: pos.coords.longitude}),
+            () => alert('Please enable gps services to use this app.'),
+            {enableHighAccuracy: true}
+        );
+    }
+}
+
+const geolocationServiceIsAvailable = () => {
+    if ('geolocation' in navigator) {
+        return true;
     } else {
-        cb(null);
+        alert('Could not find your location! Location services are required to use this app. Please enable location services and re-load the page.');
+        return false;
     }
 }
 
