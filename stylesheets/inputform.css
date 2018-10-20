@@ -2,7 +2,7 @@
     #street {
         width: 100%;
     }
-    #town {
+    #city {
         width: 100%;
     }
     #state {
@@ -17,7 +17,7 @@
     #street {
         width: 100%;
     }
-    #town {
+    #city {
         width: 100%;
     }
     #state {
@@ -32,7 +32,7 @@
     #street {
         width: 100%;
     }
-    #town {
+    #city {
         width: calc(100% - 165px - 105px);
     }
     #state {
@@ -47,7 +47,7 @@
     #street {
         width: calc(100% - 255px - 165px - 105px);
     }
-    #town {
+    #city {
         width: 250px;
     }
     #state {
