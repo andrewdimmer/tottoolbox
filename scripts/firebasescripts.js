@@ -43,7 +43,7 @@ function submitData() {
     
     console.log(dateStamp);
     
-    if (street != "" && town != "" && state != "state" && zipcode > 9999) {
+    if (street != "" && town != "" && state != "state" && zipcode > 9999 && zipcode < 100000) {
         var addressString = street + " " + town + ", " + state + " " + zipcode;
         var databaseID = zipcode + "-"
         getLocationOfAddress(addressString, function(response)  {
@@ -70,6 +70,7 @@ function submitData() {
                     console.log(candyJSON);
                     addDataToDatabase(HEREID, dateStamp, HEREAddress, HEREGeo, candyJSON)
                     addGoodMessage("Thank you! Update successful!");
+                    returnToMap();
                     clearForm();  
                 } else {
                     addBadMessage("Error: Please select at least one item from the \"Candy\" section.");

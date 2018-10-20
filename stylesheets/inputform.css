@@ -1,0 +1,59 @@
+@media only screen and (max-width: 293px) {
+    #street {
+        width: 100%;
+    }
+    #town {
+        width: 100%;
+    }
+    #state {
+        width: 100%;
+    }
+    #zipcode {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 293px) {
+    #street {
+        width: 100%;
+    }
+    #town {
+        width: 100%;
+    }
+    #state {
+        width: calc(100% - 105px);
+    }
+    #zipcode {
+        width: 100px;
+    }
+}
+
+@media only screen and (min-width: 650px) {
+    #street {
+        width: 100%;
+    }
+    #town {
+        width: calc(100% - 165px - 105px);
+    }
+    #state {
+        width: 160px;
+    }
+    #zipcode {
+        width: 100px;
+    }
+}
+
+@media only screen and (min-width: 1050px) {
+    #street {
+        width: calc(100% - 255px - 165px - 105px);
+    }
+    #town {
+        width: 250px;
+    }
+    #state {
+        width: 160px;
+    }
+    #zipcode {
+        width: 100px;
+    }
+} 

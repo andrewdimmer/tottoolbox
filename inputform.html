@@ -1,8 +1,6 @@
 <form name="updateHouse">
     <h1>Address</h1>
-    <input type="text" name="street" placeholder="Street Address" />
-    <input type="text" name="town" placeholder="Town" />
-    <select name="state">
+    <input type="text" name="street" placeholder="Street Address" id="street"/><input type="text" name="town" placeholder="Town" id="town"/><select name="state" id="state">
         <option value="state">State</option>
         <option value="Alabama">Alabama</option>
         <option value="Alaska">Alaska</option>
@@ -54,8 +52,7 @@
         <option value="West Virginia">West Virginia</option>
         <option value="Wisconsin">Wisconsin</option>
         <option value="Wyoming">Wyoming</option>
-    </select>
-    <input type="number" name="zipcode" placeholder="Zip Code" />
+    </select><input type="number" name="zipcode" placeholder="Zip Code" style="margin-right: 0px;" id="zipcode"/>
     <h1 class="label">Candy</h1>
    <!-- <p class="form-text" ><input type="checkbox" name="chocolate" />Chocolate</p> -->
     
@@ -118,4 +115,5 @@
     
     <input type="button" onclick="submitData();" value="Submit" class="big-button"/>
     <input type="reset" class="big-button"/>
+    <input type="button" onclick="returnToMap();" value="Return to Map" class="big-button"/>
 </form>

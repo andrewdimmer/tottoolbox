@@ -56,6 +56,7 @@ input[type=text], input[type=number] {
     color: #A55723;
     background-color: #242424;
     padding: 5px;
+    margin: 5px 5px 0px 0px;
 }
 
 select {
@@ -64,6 +65,7 @@ select {
     color: #A55723;
     background-color: #242424;
     padding: 5px;
+    margin: 5px 5px 0px 0px;
 }
 
 input[type=checkbox] {
