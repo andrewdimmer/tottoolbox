@@ -22,8 +22,7 @@ html {
 .wrapper-uniq {
     background-color: #242424;
     width: 80%;
-    margin: auto;
-    margin-top: 20px;
+    margin: 20px auto;
 }
 
 .internal-body-uniq {
@@ -117,6 +116,8 @@ input[type=button], input[type=reset] {
 .footer {
     padding: 16px;
     background-color: #A55723;
+    width: 100%;
+    text-align: center;
 }
 
 /*This is copied and pasted from the w3schools page at https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
@@ -219,4 +220,5 @@ input[type=button], input[type=reset] {
 .position-bottom {
     position: absolute;
     bottom: 0px;
+    width: 100%;
 }
