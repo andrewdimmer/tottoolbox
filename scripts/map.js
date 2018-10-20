@@ -11,8 +11,9 @@ let mapUi;
 let userMarker;
 let followingUser = true;
 
+_iconOptions = {size:{w:53, h:53}};
 const MapIcons = {
-    User: new H.map.Icon('../images/icons/ghost-icon.png')
+    User: new H.map.Icon('../images/icons/map-icon-vec.svg', _iconOptions)
 }
 
 const initMap = () => {
