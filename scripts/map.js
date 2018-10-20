@@ -27,7 +27,7 @@ const getPlatform = () => {
     return _platform;
 }
 
-const initMap = (center) => {
+const createMap = (center) => {
     platform = getPlatform();
 
     // Obtain the default map types from the platform object:
