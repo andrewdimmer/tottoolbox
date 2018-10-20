@@ -3,9 +3,9 @@ option:first {
     color: #999999;
 }
 .nav-bar-uniq {
-    background-color: #A55723;
+    background-color: #A55723!important;
 }
 
 .nav-item-uniq {
-    color: #ffe249;
+    color: #ffe249!important;
 }
