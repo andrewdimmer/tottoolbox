@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" href="../stylesheets/inputform.css">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -37,12 +38,34 @@
 
     <!--Our scripts-->
     <script src="../scripts/map.js"></script>
+    <script src="../scripts/mappagescripts.js"></script>
 </head>
 <body>
     <div include-html="../navbar.html"></div>
-    <div id="mapContainer"></div>
+    <div id="messages"></div>
+    <div id="filterContainerSuper"  style="display: none;">
+        <div class="card wrapper-uniq">
+            <div class="card-body internal-body-uniq">
+                <div include-html="../filterform.html"></div>
+            </div>
+        </div>
+        <div include-html="../footer.html"></div>
+    </div>
+    <div id="mapContainerSuper">
+        <div class="mapButton float-left" onclick="toggleFilterPane();">Filter</div>
+        <div class="mapButton float-right" onclick="toggleInputPane();">Add new</div>
+        <div id="mapContainer"></div>
+        <div class="position-bottom" include-html="../footer.html"></div>
+    </div>
+    <div id="inputContainerSuper" style="display: none;">
+        <div class="card wrapper-uniq">
+            <div class="card-body internal-body-uniq">
+                <div include-html="../inputform.html"></div>
+            </div>
+        </div>
+        <div include-html="../footer.html"></div>
+    </div>
     <script type="text/javascript">initMap();</script>
-    <div include-html="../footer.html"></div>
 </body>
 <footer>
     <script>
