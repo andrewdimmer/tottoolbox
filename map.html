@@ -37,15 +37,32 @@
 
     <!--Our scripts-->
     <script src="../scripts/map.js"></script>
+    <script src="../scripts/mappagescripts.js"></script>
 </head>
 <body>
     <div include-html="../navbar.html"></div>
-    <div class="mapButton float-left">Filter</div>
-    <div class="mapButton float-right">Add new</div>
-    <div id="absoluteContainer">
-        <div id="mapContainer"></div>
-        <div class="position-bottom" include-html="../footer.html">
+    <div id="messages"></div>
+    <div id="filterContainerSuper"  style="display: none;">
+        <div class="card wrapper-uniq">
+            <div class="card-body internal-body-uniq">
+                This is some text within a card body.
+            </div>
         </div>
+        <div include-html="../footer.html"></div>
+    </div>
+    <div id="mapContainerSuper">
+        <div class="mapButton float-left" onclick="toggleFilterPane();">Filter</div>
+        <div class="mapButton float-right" onclick="toggleInputPane();">Add new</div>
+        <div id="mapContainer"></div>
+        <div class="position-bottom" include-html="../footer.html"></div>
+    </div>
+    <div id="inputContainerSuper" style="display: none;">
+        <div class="card wrapper-uniq">
+            <div class="card-body internal-body-uniq">
+                <div include-html="../inputform.html"></div>
+            </div>
+        </div>
+        <div include-html="../footer.html"></div>
     </div>
     <script type="text/javascript">initMap();</script>
 </body>
