@@ -11,6 +11,10 @@ let mapUi;
 let userMarker;
 let followingUser = true;
 
+const MapIcons = {
+    User: new H.map.Icon('../images/icons/ghost-icon.png')
+}
+
 const initMap = () => {
     createMap();
 
@@ -26,7 +30,7 @@ const trackUser = (userLoc) => {
     if (userMarker != null) {
         removeMarker(userMarker);
     }
-    userMarker = addMarker(userLoc, null, () => {
+    userMarker = addMarker(userLoc, MapIcons.User, () => {
         followingUser = true;
         map.setCenter(userLoc);
     });
@@ -79,7 +83,7 @@ const createMap = () => {
 }
 
 const addMarker = (loc, icon, onClick) => {
-    const newMarker = new H.map.Marker(loc, {zIndex:100});
+    const newMarker = new H.map.Marker(loc, {icon: icon, zIndex:100});
     newMarker.addEventListener('tap', onClick);
 
     map.addObject(newMarker);
