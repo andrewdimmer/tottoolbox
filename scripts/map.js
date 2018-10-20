@@ -13,7 +13,29 @@ let followingUser = true;
 
 _iconOptions = {size:{w:53, h:53}};
 const MapIcons = {
-    User: new H.map.Icon('../images/icons/map-icon-vec.svg', _iconOptions)
+    User: new H.map.Icon('../images/icons/SVG/map-icon-vec.svg', _iconOptions),
+    EmptyHouse: new H.map.Icon('../images/markers/map-markers/SVG/misc/empty-null-marker.svg', _iconOptions),
+    Regular: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-general-mapmarker.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-candy-mapmarker.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-choc-mapmarker.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-food-mapmarker.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-other-mapmarker.svg', _iconOptions),
+    },
+    Teal: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-general-mapmarker.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-candy-mapmarker.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-choc-mapmarker.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-food-mapmarker.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-other-mapmarker.svg', _iconOptions),
+    },
+    King: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/king/king-general-mapmarker.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/king/king-candy-mapmarker.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/king/king-choc-mapmarker.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/king/king-food-mapmarker.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/king/king-other-mapmarker.svg', _iconOptions),
+    },
 }
 
 const initMap = () => {
