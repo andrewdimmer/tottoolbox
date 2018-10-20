@@ -42,49 +42,59 @@ function submitData() {
     var teal = document.forms["updateHouse"].elements["teal"].checked;
     
     console.log(dateStamp);
-    console.log(street, town, state, zipcode);
-    console.log(chocolate, candy, food, other, none);
-    console.log(king, teal);
     
     if (street != "" && town != "" && state != "state" && zipcode > 9999) {
-        if (chocolate || candy || food || other || none) {
-            var address = {
-                "street": street,
-                "town": town,
-                "state": state,
-                "zipcode": zipcode,
-            };
-            var candy = {
-                "chocolate": chocolate,
-                "candy": candy,
-                "food": food,
-                "other": other,
-                "home": !none,
-                "king": king,
-                "teal":teal,
-            };
-            console.log(json);
-            addGoodMessage("Thank you! Update successful!");
-            
-            //Clear form for new submission
-            document.forms["updateHouse"].elements["street"].value = "";
-            document.forms["updateHouse"].elements["town"].value = "";
-            document.forms["updateHouse"].elements["state"].value = "state";
-            document.forms["updateHouse"].elements["zipcode"].value = "";
-            document.forms["updateHouse"].elements["chocolate"].checked = false;
-            document.forms["updateHouse"].elements["candy"].checked = false;
-            document.forms["updateHouse"].elements["food"].checked = false;
-            document.forms["updateHouse"].elements["other"].checked = false;
-            document.forms["updateHouse"].elements["none"].checked = false;
-            document.forms["updateHouse"].elements["king"].checked = false;
-            document.forms["updateHouse"].elements["teal"].checked = false;
-        } else {
-            addBadMessage("Error: Please select at least one item from the \"Candy\" section.")
-        }
+        var addressString = street + " " + town + ", " + state + " " + zipcode;
+        var databaseID = zipcode + "-"
+        getLocationOfAddress(addressString, function(response)  {
+            var HEREPoint = response.Response.View[0].Result[0];
+            var HERELevel = HEREPoint.MatchLevel;
+            console.log(HERELevel);
+            if (HERELevel == "houseNumber") {
+                if (chocolate || candy || food || other || none) {
+                    var HEREID = HEREPoint.Location.LocationId;
+                    var HEREGeo = HEREPoint.Location.DisplayPosition;
+                    var HEREAddress = HEREPoint.Location.Address;
+                    var candy = {
+                        "chocolate": chocolate,
+                        "candy": candy,
+                        "food": food,
+                        "other": other,
+                        "home": !none,
+                        "king": king,
+                        "teal":teal,
+                    };
+                    console.log(HEREID);
+                    console.log(HEREAddress);
+                    console.log(HEREGeo);
+                    console.log(candy);
+                    addGoodMessage("Thank you! Update successful!");
+                    clearForm();  
+                } else {
+                    addBadMessage("Error: Please select at least one item from the \"Candy\" section.");
+                }
+            } else {
+                addBadMessage("Error: Unable to find house. Current match level is " + HERELevel);
+            }
+        }, function(error) {addBadMessage(error); return null;});
     } else {
-        addBadMessage("Error: Please make sure all fields in the address are filled in.")
+        addBadMessage("Error: Please make sure all fields in the address are filled in.");
     }
     
+}
+
+function clearForm() {
+    document.forms["updateHouse"].elements["street"].value = "";
+    document.forms["updateHouse"].elements["town"].value = "";
+    document.forms["updateHouse"].elements["state"].value = "state";
+    document.forms["updateHouse"].elements["zipcode"].value = "";
+    document.forms["updateHouse"].elements["chocolate"].checked = false;
+    document.forms["updateHouse"].elements["candy"].checked = false;
+    document.forms["updateHouse"].elements["food"].checked = false;
+    document.forms["updateHouse"].elements["other"].checked = false;
+    document.forms["updateHouse"].elements["none"].checked = false;
+    document.forms["updateHouse"].elements["king"].checked = false;
+    document.forms["updateHouse"].elements["teal"].checked = false;
 }
 
 function addDataToDatabase(payload) {
