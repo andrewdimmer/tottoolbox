@@ -11,22 +11,56 @@ let mapUi;
 let userMarker;
 let followingUser = true;
 
+_iconOptions = {size:{w:53, h:53}};
+const MapIcons = {
+    User: new H.map.Icon('../images/icons/SVG/map-icon-vec.svg', _iconOptions),
+    EmptyHouse: new H.map.Icon('../images/markers/map-markers/SVG/misc/empty-null-marker.svg', _iconOptions),
+    Regular: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-general-mapmarker.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-candy-mapmarker.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-choc-mapmarker.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-food-mapmarker.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-other-mapmarker.svg', _iconOptions),
+    },
+    Teal: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-general-mapmarker.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-candy-mapmarker.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-choc-mapmarker.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-food-mapmarker.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-other-mapmarker.svg', _iconOptions),
+    },
+    King: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/king/king-general-mapmarker.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/king/king-candy-mapmarker.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/king/king-choc-mapmarker.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/king/king-food-mapmarker.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/king/king-other-mapmarker.svg', _iconOptions),
+    },
+}
+
 const initMap = () => {
     createMap();
-       
-    watchUserLocation(userLoc => {
-        if (userMarker != null) {
-            removeMarker(userMarker);
-        }
-        userMarker = addMarker(userLoc, null, () => {
-            followingUser = true;
-            map.setCenter(userLoc);
-        });
 
-        if (followingUser) {
-            map.setCenter(userLoc);
-        }
+    window.addEventListener('resize', function () {
+        map.getViewPort().resize(); 
     });
+    
+    getUserLocation(trackUser);
+    watchUserLocation(trackUser);
+}
+
+const trackUser = (userLoc) => {
+    if (userMarker != null) {
+        removeMarker(userMarker);
+    }
+    userMarker = addMarker(userLoc, MapIcons.User, () => {
+        followingUser = true;
+        map.setCenter(userLoc);
+    });
+
+    if (followingUser) {
+        map.setCenter(userLoc);
+    }
 }
 
 let _platform;
@@ -72,7 +106,7 @@ const createMap = () => {
 }
 
 const addMarker = (loc, icon, onClick) => {
-    const newMarker = new H.map.Marker(loc, {zIndex:100});
+    const newMarker = new H.map.Marker(loc, {icon: icon, zIndex:100});
     newMarker.addEventListener('tap', onClick);
 
     map.addObject(newMarker);
