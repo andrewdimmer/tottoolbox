@@ -8,16 +8,16 @@ let mapContainerElement;
 let map;
 let mapUi;
 
-window.onload = () => {
+const initMap = () => {
     getUserLocation((userLoc) => {
-        initMap(userLoc);
+        createMap(userLoc);
         addMarker(userLoc);
     });
 }
 
 let _platform;
 const getPlatform = () => {
-    if (_platform) {
+    if (!_platform) {
         _platform = new H.service.Platform({
             'app_id': MapAppId,
             'app_code': MapAppCode
