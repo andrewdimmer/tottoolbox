@@ -56,6 +56,7 @@ input[type=text], input[type=number] {
     color: #A55723;
     background-color: #242424;
     padding: 5px;
+    margin: 5px 5px 0px 0px;
 }
 
 select {
@@ -64,6 +65,7 @@ select {
     color: #A55723;
     background-color: #242424;
     padding: 5px;
+    margin: 5px 5px 0px 0px;
 }
 
 input[type=checkbox] {
@@ -187,4 +189,34 @@ input[type=button], input[type=reset] {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+#mapContainer {
+    width: 100%;
+    height: calc(100vh - 76px - 56px);
+    margin: 0px;
+    position: fixed;
+    top: 76px;
+    z-index: -1;
+}
+
+.mapButton {
+    background-color: #A55723;
+    height: 75px;
+    width: 75px;
+    margin: 15px;
+    padding: 10px;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.position-bottom {
+    position: absolute;
+    bottom: 0px;
 }

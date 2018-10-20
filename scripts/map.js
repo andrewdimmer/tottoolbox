@@ -117,8 +117,12 @@ const removeMarker = (marker) => {
     map.removeObject(marker);
 }
 
+let userLocation;
 const getUserLocation = (cb) => {
     if (geolocationServiceIsAvailable()) {
+        if (userLocation) {
+            cb(userLocation);
+        }
         navigator.geolocation.getCurrentPosition(
             (pos) => cb({lat: pos.coords.latitude, lng: pos.coords.longitude}),
             () => alert('unable to find you!'),
@@ -130,7 +134,10 @@ const getUserLocation = (cb) => {
 const watchUserLocation = (cb) => {
     if (geolocationServiceIsAvailable()) {
         navigator.geolocation.watchPosition(
-            (pos) => cb({lat: pos.coords.latitude, lng: pos.coords.longitude}),
+            (pos) => {
+                userLocation = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+                cb(userLocation);
+            },
             () => alert('Please enable gps services to use this app.'),
             {enableHighAccuracy: true}
         );
