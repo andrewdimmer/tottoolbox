@@ -11,11 +11,41 @@ option:first {
 }
 
 body {
-    background-image: url(cute%20ghosts.png);
-    background-size: 200px;
-    background-attachment: fixed;
+    background-image: url(../images/cuteghosts.png);
+    background-size: 300px;
 }
 
 html {
     height: 100%;
+}
+
+.wrapper-uniq {
+    background-color: #242424;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.internal-body-uniq {
+    color: #F6B955;
+}
+
+#messages {
+    padding: 0px;
+}
+
+.message {
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.message-good {
+    background: darkseagreen;
+    border-color: darkgreen;
+}
+
+.message-bad {
+    background: lightcoral;
+    border-color: darkred;
 }
