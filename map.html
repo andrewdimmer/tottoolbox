@@ -40,9 +40,14 @@
 </head>
 <body>
     <div include-html="../navbar.html"></div>
-    <div id="mapContainer"></div>
+    <div class="mapButton float-left">Filter</div>
+    <div class="mapButton float-right">Add new</div>
+    <div id="absoluteContainer">
+        <div id="mapContainer"></div>
+        <div class="position-bottom" include-html="../footer.html">
+        </div>
+    </div>
     <script type="text/javascript">initMap();</script>
-    <div include-html="../footer.html"></div>
 </body>
 <footer>
     <script>

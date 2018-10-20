@@ -180,4 +180,28 @@ input[type=button], input[type=reset] {
     width: 100%;
     height: calc(100vh - 76px - 56px);
     margin: 0px;
+    position: fixed;
+    top: 76px;
+    z-index: -1;
+}
+
+.mapButton {
+    background-color: #A55723;
+    height: 75px;
+    width: 75px;
+    margin: 15px;
+    padding: 10px;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.position-bottom {
+    position: absolute;
+    bottom: 0px;
 }
