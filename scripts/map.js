@@ -3,7 +3,6 @@ const MapAppCode = 'npkjaY6WYXhr2P7OH6ho7g';
 
 const MapLocationImageUrl = 'https://image.maps.api.here.com/mia/1.6/mapview';
 
-let platform;
 let defaultLayers;
 let mapContainerElement;
 let map;
@@ -16,11 +15,20 @@ window.onload = () => {
     });
 }
 
+let _platform;
+const getPlatform = () => {
+    if (_platform) {
+        _platform = new H.service.Platform({
+            'app_id': MapAppId,
+            'app_code': MapAppCode
+        });
+    }
+    
+    return _platform;
+}
+
 const initMap = (center) => {
-    platform = new H.service.Platform({
-        'app_id': MapAppId,
-        'app_code': MapAppCode
-    });
+    platform = getPlatform();
 
     // Obtain the default map types from the platform object:
     defaultLayers = platform.createDefaultLayers();
@@ -58,6 +66,8 @@ const getUserLocation = (cb) => {
 
 let geocoder;
 const getLocationOfAddress = (address, cb, ce) => {
+    platform = getPlatform();
+
     // Get an instance of the geocoding service:
     if (!geocoder) {
         geocoder = platform.getGeocodingService();
