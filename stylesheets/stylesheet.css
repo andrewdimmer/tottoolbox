@@ -1,1 +1,11 @@
 // This is the main stylesheet for the site
+option:first {
+    color: #999999;
+}
+.nav-bar-uniq {
+    background-color: #A55723;
+}
+
+.nav-item-uniq {
+    color: #ffe249;
+}
