@@ -18,7 +18,7 @@ const initMap = () => {
         if (userMarker != null) {
             removeMarker(userMarker);
         }
-        addMarker(userLoc);
+        userMarker = addMarker(userLoc);
 
         if (followingUser) {
             map.setCenter(userLoc);
