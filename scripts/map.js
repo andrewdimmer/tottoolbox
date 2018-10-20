@@ -9,18 +9,20 @@ let map;
 let mapUi;
 
 let userMarker;
+let followingUser = true;
 
 const initMap = () => {
-    getUserLocation((userLoc) => {
-        createMap(userLoc);
-        userMarker = addMarker(userLoc);
-        
-        watchUserLocation(userLoc => {
-            if (userMarker != null) {
-                removeMarker(userMarker);
-            }
-            addMarker(userLoc);
-        });
+    createMap();
+       
+    watchUserLocation(userLoc => {
+        if (userMarker != null) {
+            removeMarker(userMarker);
+        }
+        addMarker(userLoc);
+
+        if (followingUser) {
+            map.setCenter(userLoc);
+        }
     });
 }
 
@@ -36,7 +38,7 @@ const getPlatform = () => {
     return _platform;
 }
 
-const createMap = (center) => {
+const createMap = () => {
     platform = getPlatform();
 
     // Obtain the default map types from the platform object:
@@ -49,13 +51,16 @@ const createMap = (center) => {
         mapContainerElement,
         defaultLayers.normal.map,
         {
-            zoom: 15,
-            center: center
+            zoom: 15
         }
     );
 
     // Enable the event system on the map instance (enable click and drag)
     let mapEvents = new H.mapevents.MapEvents(map);
+
+    map.addEventListener('dragstart', () => {
+        followingUser = false;
+    });
 
     // Instantiate the default behavior, providing the mapEvents object
     let behavior = new H.mapevents.Behavior(mapEvents);
