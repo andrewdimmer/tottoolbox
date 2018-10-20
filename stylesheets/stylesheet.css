@@ -9,3 +9,13 @@ option:first {
 .nav-item-uniq {
     color: #ffe249!important;
 }
+
+body {
+    background-image: url(cute%20ghosts.png);
+    background-size: 200px;
+    background-attachment: fixed;
+}
+
+html {
+    height: 100%;
+}
