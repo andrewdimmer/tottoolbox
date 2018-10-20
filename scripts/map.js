@@ -49,7 +49,13 @@ const createMap = (center) => {
 }
 
 const addMarker = (loc) => {
-    map.addObject(new H.map.Marker(loc));
+    const newMarker = new H.map.Marker(loc);
+    map.addObject(newMarker);
+    return newMarker;
+}
+
+const removeMarker = (marker) => {
+    map.removeObject(marker);
 }
 
 const getUserLocation = (cb) => {
