@@ -186,8 +186,9 @@ function determineLocationMarker(index) {
         "lng": geoPoint.Longitude
     }
     var callback = function() {
-        var i = staticIndex;
-        displayPointInfo(i);
+        var myIndex = staticIndex;
+        console.log(myIndex);
+        displayPointInfo(myIndex);
     };
     var icon = MapIcons;
     // console.log(staticIndex);
@@ -245,6 +246,53 @@ function determineLocationMarker(index) {
 function displayPointInfo(index) {
     console.log("To be added: displayPointInfo");
     // Implement Here
+    //console.log(information[index]);
+    var count = 0;
+    var alertString = information[index].address.Label + "\n\n";
+    var candyData = information[index].candy[0];
+    console.log(candyData);
+    if (!candyData.home) {
+        alertString += "Not home!";
+    } else {
+        alertString += "Offers: ";
+        if (candyData.chocolate) {
+            alertString += "Chocolate";
+            count++;
+        }
+        if (candyData.candy) {
+            if (count > 0) {
+                alertString += "; ";
+            }
+            alertString += "Candy";
+            count++;
+        }
+        if (candyData.food) {
+            if (count > 0) {
+                alertString += "; ";
+            }
+            alertString += "Food";
+            count++;
+        }
+        if (candyData.other) {
+            if (count > 0) {
+                alertString += "; ";
+            }
+            alertString += "Other";
+            count++;
+        }
+        if (candyData.king) {
+            if (count > 0) {
+                alertString += "; ";
+            }
+            alertString += "King Sized";
+            count++;
+        }
+        if (candyData.teal) {
+            alertString += "\n\nTeal Pumpkin House";
+        }
+    }
+    alert(alertString);
+    
 }
 
 function applyFilters() {
