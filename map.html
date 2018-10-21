@@ -49,119 +49,119 @@
                 <form name="filter">
                     <h1>Filter Map Results</h1>
                     <h2>Chocolate</h2>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="chocolate" value="T">
                         Must have chocolate
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="chocolate" value="N" checked>
                         Do not filter by whether or not a house has chocolate
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="chocolate" value="F">
                         Must not have chocolate candy
                         <span class="radiobutton"></span>
                     </label>
 
                     <h2>Candy (gummy candy, hard candy, etc.)</h2>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="candy" value="T">
                         Must have candy
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="candy" value="N" checked>
                         Do not filter by whether or not a house has candy
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="candy" value="F">
                         Must not have candy
                         <span class="radiobutton"></span>
                     </label>
 
                     <h2>Food (pretzels, chips, fruits, etc.)</h2>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="food" value="T">
                         Must have food
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="food" value="N" checked>
                         Do not filter by whether or not a house has food
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="food" value="F">
                         Must not have food
                         <span class="radiobutton"></span>
                     </label>
 
                     <h2>Other Treats</h2>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="other" value="T">
                         Must have other treats
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="other" value="N" checked>
                         Do not filter by whether or not a house has other treats
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="other" value="F">
                         Must not have other treats
                         <span class="radiobutton"></span>
                     </label>
 
                     <h2>Is Home</h2>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="home" value="T">
                         Must be home
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="home" value="N" checked>
                         Do not filter by whether or not a house is home
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="home" value="F">
                         Must not be home
                         <span class="radiobutton"></span>
                     </label>
 
                     <h2>King Sized</h2>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="king" value="T">
                         Must have king sized
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="king" value="N" checked>
                         Do not filter by whether or not a house has king sized
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name="king" value="F">
                         Must not have king sized
                         <span class="radiobutton"></span>
                     </label>
 
                     <h2>Teal Pumpkin House</h2>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name=teal value="T">
                         Must be a teal pumpkin house
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name=teal value="N" checked>
                         Do not filter by whether or not a house is a teal pumpkin house
                         <span class="radiobutton"></span>
                     </label>
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="radio" name=teal value="F">
                         Must not be a teal pumpkin house
                         <span class="radiobutton"></span>
@@ -190,7 +190,7 @@
             <div class="card-body internal-body-uniq">
                 <form name="updateHouse">
                     <h1>Address</h1>
-                    <input type="button" onclick="prepopulateAddress();" value="Load Address from Current Location" class="big-button" style="margin: auto;"/>
+                    <input type="button" onclick="prepopulateAddress();" value="Load Address from Current Location" class="big-button" style="margin: auto;"/><br />
                     <input type="text" name="street" placeholder="Street Address" id="street"/><input type="text" name="city" placeholder="City" id="city"/><select name="state" id="state">
                         <option value="state">State</option>
                         <option value="Alabama">Alabama</option>
@@ -247,7 +247,7 @@
                     <h1 class="label">Candy</h1>
                    <!-- <p class="form-text" ><input type="checkbox" name="chocolate" />Chocolate</p> -->
 
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="checkbox" name="chocolate">
                         Chocolate
                         <span class="checkmark"></span>
@@ -255,7 +255,7 @@
 
                     <!-- <p class="form-text" ><input type="checkbox" name="candy" />Candy (gummy candy, hard candy, etc.)</p> -->
 
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="checkbox" name="candy">
                         Candy (gummy candy, hard candy, etc.)
                         <span class="checkmark"></span>
@@ -263,7 +263,7 @@
 
                     <!-- <p class="form-text" ><input type="checkbox" name="food" />Food (pretzels, chips, fruits, etc.)</p> -->
 
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="checkbox" name="food">
                         Food (pretzels, chips, fruits, etc.)
                         <span class="checkmark"></span>
@@ -271,7 +271,7 @@
 
                     <!-- <p class="form-text" ><input type="checkbox" name="other" />Other</p> -->
 
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="checkbox" name="other">
                         Other
                         <span class="checkmark"></span>
@@ -279,7 +279,7 @@
 
                     <!-- <p class="form-text" ><input type="checkbox" name="none" />Not Home/Out of Candy</p> -->
 
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="checkbox" name="none">
                         Not Home/Out of Candy
                         <span class="checkmark"></span>
@@ -288,7 +288,7 @@
                     <h2 class="label">King Sized</h2>
                     <!-- <p class="form-text" ><input type="checkbox" name="king" />King Sized</p> -->
 
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="checkbox" name="king">
                         King Sized
                         <span class="checkmark"></span>
@@ -298,7 +298,7 @@
                     <p>The Teal Pumpkin Project is an effort to raise awareness of food allergies. Those who participate in the project place a teal painted pumpkin outside their door and provide non-food treats to trick-or-treaters on Halloween.</p>
                     <!-- <p class="form-text" ><input type="checkbox" name="teal" />Teal Pumpkin House</p> -->
 
-                    <label class="container form-text">
+                    <label class="form-input-container form-text">
                         <input type="checkbox" name="teal">
                         Teal Pumpkin House
                         <span class="checkmark"></span>
