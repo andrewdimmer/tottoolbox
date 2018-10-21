@@ -258,7 +258,8 @@ input[type=button], input[type=reset] {
   background-color: #242424;
   border-radius: 50%;
   border-color: #A55723;
-  border-width: 2px solid;
+  border-width: 2px;
+  border-style: solid;
 }
 
 /* On mouse-over, add a grey background color */
@@ -285,10 +286,10 @@ input[type=button], input[type=reset] {
 
 /* Style the indicator (dot/circle) */
 .form-input-container .radiobutton:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
+  top: 7px;
+  left: 7px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: white;
+  background: #A55723;
 }
