@@ -68,7 +68,8 @@ const getPlatform = () => {
     if (!_platform) {
         _platform = new H.service.Platform({
             'app_id': MapAppId,
-            'app_code': MapAppCode
+            'app_code': MapAppCode,
+            'useHTTPS': true
         });
     }
     
