@@ -15,6 +15,7 @@ _iconOptions = {size:{w:53, h:53}};
 const MapIcons = {
     User: new H.map.Icon('../images/icons/SVG/map-icon-vec.svg', _iconOptions),
     EmptyHouse: new H.map.Icon('../images/markers/map-markers/SVG/misc/empty-null-marker.svg', _iconOptions),
+    EmptyHouse_f: new H.map.Icon('../images/markers/map-markers/SVG/misc/empty-null-marker-f.svg', _iconOptions),
     Regular: {
         General: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-general-mapmarker.svg', _iconOptions),
         Candy: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-candy-mapmarker.svg', _iconOptions),
@@ -36,6 +37,27 @@ const MapIcons = {
         Food: new H.map.Icon('../images/markers/map-markers/SVG/king/king-food-mapmarker.svg', _iconOptions),
         Other: new H.map.Icon('../images/markers/map-markers/SVG/king/king-other-mapmarker.svg', _iconOptions),
     },
+    Regular_f: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-general-mapmarker-f.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-candy-mapmarker-f.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-choc-mapmarker-f.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-food-mapmarker-f.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/regular/regular-other-mapmarker-f.svg', _iconOptions),
+    },
+    Teal_f: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-general-mapmarker-f.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-candy-mapmarker-f.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-choc-mapmarker-f.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-food-mapmarker-f.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/teal/teal-other-mapmarker-f.svg', _iconOptions),
+    },
+    King_f: {
+        General: new H.map.Icon('../images/markers/map-markers/SVG/king/king-general-mapmarker-f.svg', _iconOptions),
+        Candy: new H.map.Icon('../images/markers/map-markers/SVG/king/king-candy-mapmarker-f.svg', _iconOptions),
+        Chocolate: new H.map.Icon('../images/markers/map-markers/SVG/king/king-choc-mapmarker-f.svg', _iconOptions),
+        Food: new H.map.Icon('../images/markers/map-markers/SVG/king/king-food-mapmarker-f.svg', _iconOptions),
+        Other: new H.map.Icon('../images/markers/map-markers/SVG/king/king-other-mapmarker-f.svg', _iconOptions),
+    }
 }
 
 const initMap = () => {
@@ -112,6 +134,11 @@ const addMarker = (loc, icon, onClick) => {
 
     map.addObject(newMarker);
     return newMarker;
+}
+
+const addExistingMarker = (marker) => {
+    map.addObject(marker);
+    return true;
 }
 
 const removeMarker = (marker) => {

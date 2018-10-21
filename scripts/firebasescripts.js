@@ -99,19 +99,21 @@ function clearForm() {
     document.forms["updateHouse"].elements["teal"].checked = false;
 }
 
-function addDataToDatabase(id, dateTime, address, geopoint, candy) {
+function addDataToDatabase(id, newDateTime, address, geopoint, newCandy) {
     var location = db.collection("Locations").doc(id);
     var one = location.get().then(function(doc) {
         if (doc.exists) {
+            console.log(id + " exists");
             console.log("Document data:", doc.data());
             var locationData = doc.data();
-            locationData.dateTime.unshift(dateTime);
-            locationData.candy.unshift(candy);
+            locationData.dateTime.unshift(newDateTime);
+            locationData.candy.unshift(newCandy);
             location.set({
                 "address": locationData.address,
                 "geopoint": locationData.geopoint,
                 "dateTime": locationData.dateTime,
-                "candy": locationData.candy
+                "candy": locationData.candy,
+                "highest": determineNewHighest(newCandy, locationData.highest)
             })
             .then(function() {
                 console.log("Document successfully written!");
@@ -120,11 +122,13 @@ function addDataToDatabase(id, dateTime, address, geopoint, candy) {
                 console.error("Error writing document: ", error);
             });
         } else {
+            console.log(id + " does not exist");
             location.set({
                 "address": address,
                 "geopoint": geopoint,
-                "dateTime": [dateTime],
-                "candy": [candy]
+                "dateTime": [newDateTime],
+                "candy": [newCandy],
+                "highest": determineFirstHighest(newCandy)
             })
             .then(function() {
                 console.log("Document successfully written!");
@@ -142,10 +146,10 @@ function addDataToDatabase(id, dateTime, address, geopoint, candy) {
         if (doc.exists) {
             console.log("Document data:", doc.data());
             var yearData = doc.data();
-            yearData.dateTime.unshift(dateTime);
+            yearData.dateTime.unshift(newDateTime);
             yearData.id.unshift(id);
             year.set({
-                "lastUpdated": dateTime,
+                "lastUpdated": newDateTime,
                 "dateTime": yearData.dateTime,
                 "id": yearData.id
             })
@@ -157,8 +161,8 @@ function addDataToDatabase(id, dateTime, address, geopoint, candy) {
             });
         } else {
             year.set({
-                "lastUpdated": dateTime,
-                "dateTime": [dateTime],
+                "lastUpdated": newDateTime,
+                "dateTime": [newDateTime],
                 "id": [id]
             })
             .then(function() {
@@ -174,4 +178,97 @@ function addDataToDatabase(id, dateTime, address, geopoint, candy) {
     
     
     return Promise.all([one, two]).then(function() { console.log("All complete!"); });
+}
+
+function loadDatesAndIDs() {
+    var currentYearData;
+    var pastYearData;
+    
+    var yearNew = db.collection("Dates").doc("year" + (new Date().getFullYear()));
+    var currentYear = yearNew.get().then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            currentYearData = doc.data();
+        } else {
+            currentYearData = null;
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+    
+    var yearOld = db.collection("Dates").doc("year" + (new Date().getFullYear() - 1));
+    var pastYear = yearOld.get().then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            pastYearData = doc.data();
+        } else {
+            pastYearData = null;
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+    
+    return Promise.all([currentYear, pastYear]).then(function() { return {"currentYearData": currentYearData, "pastYearData": pastYearData}; });
+}
+
+function determineFirstHighest(candy) {
+    var highest = {
+        "level": "void",
+        "king": candy.king,
+        "teal": candy.teal
+    }
+    if (candy.chocolate == true) {
+        highest.level = 4;
+    } else if (candy.candy == true) {
+        highest.level = 3;
+    } else if (candy.food == true) {
+        highest.level = 2;
+    } else if (candy.other == true) {
+        highest.level = 1;
+    } else {
+        highest.level = 0;
+    }
+    return highest;
+}
+
+function determineNewHighest(candy, lastHighest) {
+    var highest = {
+        "level": lastHighest.level,
+        "king": candy.king || lastHighest.king,
+        "teal": candy.teal || lastHighest.teal,
+    }
+    if (candy.chocolate == true) {
+        highest.level = 4;
+    } else if (candy.candy == true) {
+        if (lastHighest.level < 3) {
+            highest.level = 3;
+        }
+    } else if (candy.food == true) {
+        if (lastHighest.level < 2) {
+            highest.level = 2;
+        }
+    } else if (candy.other == true) {
+         if (lastHighest.level < 1) {
+            highest.level = 1;
+        }
+    }
+    return highest;
+}
+
+function getLocationInfo(index, id) {
+    console.log(id);
+    var location = db.collection("Locations").doc(id);
+    var locationData;
+    var gotInfo = location.get().then(function(doc) {
+        if (doc.exists) {
+            // console.log("Document data:", doc.data());
+            locationData = doc.data();
+        } else {
+            console.log("Cannot access data from " + id);
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+    
+    return Promise.all([gotInfo]).then(function() { return [index, locationData]; });
 }
