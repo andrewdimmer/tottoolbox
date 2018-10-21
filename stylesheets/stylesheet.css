@@ -1,4 +1,16 @@
 // This is the main stylesheet for the site
+
+/*Remove link styling on home page*/ 
+ 
+.no-clear:hover { 
+    background-color: #A55723; 
+} 
+ 
+hr { 
+    border-color: #F6B955; 
+    border-width: 5px; 
+} 
+
 option:first {
     color: #999999;
 }
@@ -119,6 +131,10 @@ input[type=button], input[type=reset] {
     width: 100%;
     text-align: center;
 }
+
+a.home-link:hover { 
+    text-decoration: none; 
+} 
 
 /*This is copied and pasted from the w3schools page at https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
 
