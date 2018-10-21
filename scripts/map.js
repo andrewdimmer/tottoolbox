@@ -136,6 +136,11 @@ const addMarker = (loc, icon, onClick) => {
     return newMarker;
 }
 
+const addExistingMarker = (marker) => {
+    map.addObject(marker);
+    return true;
+}
+
 const removeMarker = (marker) => {
     map.removeObject(marker);
 }

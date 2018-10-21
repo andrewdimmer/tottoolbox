@@ -1,4 +1,12 @@
-var filters;
+var filters = {
+        "chocolate": "N",
+        "candy": "N",
+        "food": "N",
+        "other": "N",
+        "home": "N",
+        "king": "N",
+        "teal": "N"
+    };
 
 function toggleFilterPane() {
     document.getElementById("filterContainerSuper").style.display = "block";
@@ -41,6 +49,8 @@ function updateFilters() {
         "teal": document.forms["filter"].elements["teal"].value
     }
     console.log(filters);
+    applyFilters();
+    returnToMap();
 }
 
 var lastUpdated;
@@ -131,8 +141,11 @@ function checkForUpdates() {
                                             promiseIndex = locationData[0];
                                             information[promiseIndex] = locationData[1];
                                             removeMarker(markers[promiseIndex]);
-                                            markers.push(determineLocationMarker(promiseIndex));
-                                        }, function(error) {console.log(error);});
+                                            markers[promiseIndex] = determineLocationMarker(promiseIndex);
+                                            if(!checkFilter(promiseIndex)) {
+                                                removeMarker(markers[promiseIndex]);
+                                            }
+                                        }, function(error) {console.log(error);})
                                     }
                                 }
                             } else {
@@ -146,6 +159,9 @@ function checkForUpdates() {
                                     promiseIndex = locationData[0];
                                     information.push(locationData[1]);
                                     markers.push(determineLocationMarker(promiseIndex));
+                                    if(!checkFilter(promiseIndex)) {
+                                        removeMarker(markers[promiseIndex]);
+                                    }
                                 }, function(error) {console.log(error);});
                             }
                         } else {
@@ -179,7 +195,7 @@ function determineLocationMarker(index) {
     // console.log(dates[staticIndex]);
     if(parseInt(dates[staticIndex].substring(0,4)) == (new Date().getFullYear())) {
         var newCandy = information[staticIndex].candy[0];
-        console.log(newCandy);
+        // console.log(newCandy);
         if (!newCandy.home) {
             icon = icon.EmptyHouse;
         } else {
@@ -229,4 +245,114 @@ function determineLocationMarker(index) {
 function displayPointInfo(index) {
     console.log("To be added: displayPointInfo");
     // Implement Here
+}
+
+function applyFilters() {
+    for (var i = 0; i < markers.length; i++) {
+        try {
+            removeMarker(markers[i]);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    for (var i= 0; i < markers.length; i++) {
+        var allTrue = checkFilter(i);
+        
+        if (allTrue) {
+            addExistingMarker(markers[i]);
+        }
+    }
+}
+
+function checkFilter(i) {
+    var testTable = [];
+    var info = information[i].candy[0];
+    // console.log(info);
+
+    // chocolate
+    if (filters.chocolate.indexOf("N") > -1) {
+        testTable.push(true);
+    } else {
+        if (filters.chocolate.indexOf("T") > -1) {
+            testTable.push(info.chocolate);
+        } else {
+            testTable.push(!info.chocolate);
+        }
+    }
+
+    // candy
+    if (filters.candy.indexOf("N") > -1) {
+        testTable.push(true);
+    } else {
+        if (filters.candy.indexOf("T") > -1) {
+            testTable.push(info.candy);
+        } else {
+            testTable.push(!info.candy);
+        }
+    }
+
+    // food
+    if (filters.food.indexOf("N") > -1) {
+        testTable.push(true);
+    } else {
+        if (filters.food.indexOf("T") > -1) {
+            testTable.push(info.food);
+        } else {
+            testTable.push(!info.food);
+        }
+    }
+
+    // other
+    if (filters.other.indexOf("N") > -1) {
+        testTable.push(true);
+    } else {
+        if (filters.other.indexOf("T") > -1) {
+            testTable.push(info.other);
+        } else {
+            testTable.push(!info.other);
+        }
+    }
+
+    // home
+    if (filters.home.indexOf("N") > -1) {
+        testTable.push(true);
+    } else {
+        if (filters.home.indexOf("T") > -1) {
+            testTable.push(info.home);
+        } else {
+            testTable.push(!info.home);
+        }
+    }
+
+    // king
+    if (filters.king.indexOf("N") > -1) {
+        testTable.push(true);
+    } else {
+        if (filters.king.indexOf("T") > -1) {
+            testTable.push(info.king);
+        } else {
+            testTable.push(!info.king);
+        }
+    }
+
+    // teal
+    if (filters.teal.indexOf("N") > -1) {
+        testTable.push(true);
+    } else {
+        if (filters.teal.indexOf("T") > -1) {
+            testTable.push(info.teal);
+        } else {
+            testTable.push(!info.teal);
+        }
+    }
+
+    // console.log(testTable);
+    var allTrue = true;
+    for (var t = 0; t < testTable.length; t++) {
+        if (!testTable[t]) {
+            allTrue = false;
+            break;
+        }
+    }
+    return allTrue;
 }
