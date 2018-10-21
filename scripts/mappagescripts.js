@@ -49,37 +49,115 @@ var dates = [];
 var ids = [];
 var information = [];
 function initializeMapPoints() {
+    var counter = 0;
     var dateInfoPromise = loadDatesAndIDs();
     dateInfoPromise.then(function(response) {
-        lastUpdated = response.lastUpdated;
-        var idToCheck = response.currentYearData.id;
-        var dateWithID = response.currentYearData.dateTime;
-        for (var i = 0; i < idToCheck.length; i++) {
-            // console.log("Loop at " + i);
-            if (ids.includes(idToCheck[i])) {
-                continue;
-            } else {
-                // console.log("Else at " + i);
-                ids.push(idToCheck[i]);
-                dates.push(dateWithID[i]);
-                // console.log("LoadData at " + i);
-                var locationDataPromise = getLocationInfo(i, ids[i]);
-                locationDataPromise.then(function(locationData) {
-                    // console.log("Promise at " + i);
-                    promiseIndex = locationData[0];
-                    information.push(locationData[1]);
-                    markers.push(determineLocationMarker(promiseIndex));
-                }, function(error) {console.log(error);});
+        console.log(response);
+        if (response.currentYearData != null) {
+            lastUpdated = response.currentYearData.lastUpdated;
+            var idToCheck = response.currentYearData.id;
+            var dateWithID = response.currentYearData.dateTime;
+            for (var i = 0; i < idToCheck.length; i++) {
+                // console.log("Loop at " + i);
+                if (ids.includes(idToCheck[i])) {
+                    // console.log("Skipped " + i);
+                    continue;
+                } else {
+                    // console.log("Else at " + i);
+                    ids.push(idToCheck[i]);
+                    dates.push(dateWithID[i]);
+                    // console.log("LoadData at " + i);
+                    var locationDataPromise = getLocationInfo(counter, ids[counter]);
+                    locationDataPromise.then(function(locationData) {
+                        // console.log("Promise at " + i);
+                        promiseIndex = locationData[0];
+                        information.push(locationData[1]);
+                        markers.push(determineLocationMarker(promiseIndex));
+                    }, function(error) {console.log(error);});
+                    counter++;
+                }
+            }
+        }
+        if (response.pastYearData != null) {
+            if (lastUpdated == undefined) {
+                lastUpdated = response.pastYearData.lastUpdated;
+            }
+            var idToCheck = response.pastYearData.id;
+            var dateWithID = response.pastYearData.dateTime;
+            for (var i = 0; i < idToCheck.length; i++) {
+                // console.log("Loop at " + i);
+                if (ids.includes(idToCheck[i])) {
+                    // console.log("Skipped " + i);
+                    continue;
+                } else {
+                    // console.log("Else at " + i);
+                    ids.push(idToCheck[i]);
+                    dates.push(dateWithID[i]);
+                    // console.log("LoadData at " + i);
+                    var locationDataPromise = getLocationInfo(counter, ids[counter]);
+                    locationDataPromise.then(function(locationData) {
+                        // console.log("Promise at " + i);
+                        promiseIndex = locationData[0];
+                        information.push(locationData[1]);
+                        markers.push(determineLocationMarker(promiseIndex));
+                    }, function(error) {console.log(error);});
+                    counter++;
+                }
             }
         }
     }, function(error) {console.log(error);});
-    // checkForUpdates();
+    checkForUpdates();
 }
 
 function checkForUpdates() {
     setTimeout(function() {
         console.log("Update Map!");
-        // To be implemented here!
+        var dateInfoPromise = loadDatesAndIDs();
+        dateInfoPromise.then(function(response) {
+            if (response.currentYearData != null) {
+                if (new Date(lastUpdated).getTime() < new Date(response.currentYearData.lastUpdated).getTime()) {
+                    var idToCheck = response.currentYearData.id;
+                    var dateWithID = response.currentYearData.dateTime;
+                    for (var i = 0; i < idToCheck.length; i++) {
+                        // console.log("Loop at " + i);
+                        if (new Date(lastUpdated).getTime() < new Date(dateWithID[i]).getTime()) {
+                            if (ids.includes(idToCheck[i])) {
+                                for (var j = 0; j < ids.length; j++) {
+                                    if (ids[j].indexOf(idToCheck[i]) > -1) {
+                                        dates[j] = dateWithID[i];
+                                        var locationDataPromise = getLocationInfo(j, ids[j]);
+                                        locationDataPromise.then(function(locationData) {
+                                            // console.log("Promise at " + i);
+                                            promiseIndex = locationData[0];
+                                            information[promiseIndex] = locationData[1];
+                                            removeMarker(markers[promiseIndex]);
+                                            markers.push(determineLocationMarker(promiseIndex));
+                                        }, function(error) {console.log(error);});
+                                    }
+                                }
+                            } else {
+                                // console.log("Else at " + i);
+                                ids.push(idToCheck[i]);
+                                dates.push(dateWithID[i]);
+                                // console.log("LoadData at " + i);
+                                var locationDataPromise = getLocationInfo(ids.length-1, ids[ids.length-1]);
+                                locationDataPromise.then(function(locationData) {
+                                    // console.log("Promise at " + i);
+                                    promiseIndex = locationData[0];
+                                    information.push(locationData[1]);
+                                    markers.push(determineLocationMarker(promiseIndex));
+                                }, function(error) {console.log(error);});
+                            }
+                        } else {
+                            lastUpdated = response.currentYearData.lastUpdated;
+                            break;
+                        }
+                    }
+                }
+            }
+        }, function(error) {console.log(error);});
+        
+        // Recurse
         checkForUpdates()
     }, 30000);
 }
@@ -100,28 +178,30 @@ function determineLocationMarker(index) {
     // console.log(dates);
     // console.log(dates[staticIndex]);
     if(parseInt(dates[staticIndex].substring(0,4)) == (new Date().getFullYear())) {
-        if (!information[staticIndex].candy[information[staticIndex].candy.length-1].home) {
+        var newCandy = information[staticIndex].candy[0];
+        console.log(newCandy);
+        if (!newCandy.home) {
             icon = icon.EmptyHouse;
         } else {
-            if (information[staticIndex].candy[information[staticIndex].candy.length-1].teal) {
+            if (newCandy.teal) {
                 icon = icon.Teal;
-            } else if (information[staticIndex].candy[information[staticIndex].candy.length-1].king) {
+            } else if (newCandy.king) {
                 icon = icon.King;
             } else {
                 icon = icon.Regular;
             }
-            if (information[staticIndex].candy[information[staticIndex].candy.length-1].chocolate) {
+            if (newCandy.chocolate) {
                 icon = icon.Chocolate;
-            } else if (information[staticIndex].candy[information[staticIndex].candy.length-1].candy) {
+            } else if (newCandy.candy) {
                 icon = icon.Candy;
-            } else if (information[staticIndex].candy[information[staticIndex].candy.length-1].food) {
+            } else if (newCandy.food) {
                 icon = icon.Food;
-            } else if (information[staticIndex].candy[information[staticIndex].candy.length-1].other) {
+            } else if (newCandy.other) {
                 icon = icon.Other;
             }
         }
     } else {
-        if (information[staticIndex].highest.teal == 0) {
+        if (information[staticIndex].highest.level == 0) {
             icon = icon.EmptyHouse_f;
         } else {
             if (information[staticIndex].highest.teal) {
@@ -131,18 +211,18 @@ function determineLocationMarker(index) {
             } else {
                 icon = icon.Regular_f;
             }
-            if (information[staticIndex].highest.teal == 4) {
+            if (information[staticIndex].highest.level == 4) {
                 icon = icon.Chocolate;
-            } else if (information[staticIndex].highest.teal == 3) {
+            } else if (information[staticIndex].highest.level == 3) {
                 icon = icon.Candy;
-            } else if (information[staticIndex].highest.teal == 2) {
+            } else if (information[staticIndex].highest.level == 2) {
                 icon = icon.Food;
-            } else if (information[staticIndex].highest.teal == 1) {
+            } else if (information[staticIndex].highest.level == 1) {
                 icon = icon.Other;
             }
         }
     }
-    console.log(formattedGeoPoint);
+    // console.log(formattedGeoPoint);
     return addMarker(formattedGeoPoint, icon, callback);
 }
 
