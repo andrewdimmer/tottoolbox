@@ -25,12 +25,12 @@ function returnToMap() {
 }
 
 function prepopulateAddress() {
-    console.log("starting");
+    // console.log("starting");
     getUserLocation(function(userLocation) {
         getAddressOfLocation(userLocation, function(response) {
             // console.log(response);
             var address = response.Response.View[0].Result[0].Location.Address;
-            console.log(address);
+            // console.log(address);
             document.getElementById("city").value = address.City;
             document.getElementById("state").value = address.AdditionalData[1].value;
             document.getElementById("zipcode").value = address.PostalCode;
@@ -48,7 +48,7 @@ function updateFilters() {
         "king": document.forms["filter"].elements["king"].value,
         "teal": document.forms["filter"].elements["teal"].value
     }
-    console.log(filters);
+    // console.log(filters);
     applyFilters();
     returnToMap();
 }
@@ -62,7 +62,7 @@ function initializeMapPoints() {
     var counter = 0;
     var dateInfoPromise = loadDatesAndIDs();
     dateInfoPromise.then(function(response) {
-        console.log(response);
+        // console.log(response);
         if (response.currentYearData != null) {
             lastUpdated = response.currentYearData.lastUpdated;
             var idToCheck = response.currentYearData.id;
@@ -187,7 +187,7 @@ function determineLocationMarker(index) {
     }
     var callback = function() {
         var myIndex = staticIndex;
-        console.log(myIndex);
+        // console.log(myIndex);
         displayPointInfo(myIndex);
     };
     var icon = MapIcons;
@@ -244,13 +244,11 @@ function determineLocationMarker(index) {
 }
 
 function displayPointInfo(index) {
-    console.log("To be added: displayPointInfo");
-    // Implement Here
-    //console.log(information[index]);
+    // console.log(information[index]);
     var count = 0;
     var alertString = information[index].address.Label + "\n\n";
     var candyData = information[index].candy[0];
-    console.log(candyData);
+    // console.log(candyData);
     if (!candyData.home) {
         alertString += "Not home!";
     } else {

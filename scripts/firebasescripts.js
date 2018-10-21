@@ -49,7 +49,7 @@ function submitData() {
         getLocationOfAddress(addressString, function(response)  {
             var HEREPoint = response.Response.View[0].Result[0];
             var HERELevel = HEREPoint.MatchLevel;
-            console.log(HERELevel);
+            // console.log(HERELevel);
             if (HERELevel == "houseNumber") {
                 if (chocolate || candy || food || other || none) {
                     var HEREID = HEREPoint.Location.LocationId;
@@ -64,10 +64,10 @@ function submitData() {
                         "king": king,
                         "teal":teal,
                     };
-                    console.log(HEREID);
-                    console.log(HEREAddress);
-                    console.log(HEREGeo);
-                    console.log(candyJSON);
+                    // console.log(HEREID);
+                    // console.log(HEREAddress);
+                    // console.log(HEREGeo);
+                    // console.log(candyJSON);
                     addDataToDatabase(HEREID, dateStamp, HEREAddress, HEREGeo, candyJSON)
                     addGoodMessage("Thank you! Update successful!");
                     returnToMap();
@@ -103,8 +103,8 @@ function addDataToDatabase(id, newDateTime, address, geopoint, newCandy) {
     var location = db.collection("Locations").doc(id);
     var one = location.get().then(function(doc) {
         if (doc.exists) {
-            console.log(id + " exists");
-            console.log("Document data:", doc.data());
+            // console.log(id + " exists");
+            // console.log("Document data:", doc.data());
             var locationData = doc.data();
             locationData.dateTime.unshift(newDateTime);
             locationData.candy.unshift(newCandy);
@@ -122,7 +122,7 @@ function addDataToDatabase(id, newDateTime, address, geopoint, newCandy) {
                 console.error("Error writing document: ", error);
             });
         } else {
-            console.log(id + " does not exist");
+            // console.log(id + " does not exist");
             location.set({
                 "address": address,
                 "geopoint": geopoint,
@@ -144,7 +144,7 @@ function addDataToDatabase(id, newDateTime, address, geopoint, newCandy) {
     var year = db.collection("Dates").doc("year" + (new Date().getFullYear()));
     var two = year.get().then(function(doc) {
         if (doc.exists) {
-            console.log("Document data:", doc.data());
+            // console.log("Document data:", doc.data());
             var yearData = doc.data();
             yearData.dateTime.unshift(newDateTime);
             yearData.id.unshift(id);
@@ -187,7 +187,7 @@ function loadDatesAndIDs() {
     var yearNew = db.collection("Dates").doc("year" + (new Date().getFullYear()));
     var currentYear = yearNew.get().then(function(doc) {
         if (doc.exists) {
-            console.log("Document data:", doc.data());
+            // console.log("Document data:", doc.data());
             currentYearData = doc.data();
         } else {
             currentYearData = null;
@@ -199,7 +199,7 @@ function loadDatesAndIDs() {
     var yearOld = db.collection("Dates").doc("year" + (new Date().getFullYear() - 1));
     var pastYear = yearOld.get().then(function(doc) {
         if (doc.exists) {
-            console.log("Document data:", doc.data());
+            // console.log("Document data:", doc.data());
             pastYearData = doc.data();
         } else {
             pastYearData = null;
@@ -256,7 +256,7 @@ function determineNewHighest(candy, lastHighest) {
 }
 
 function getLocationInfo(index, id) {
-    console.log(id);
+    // console.log(id);
     var location = db.collection("Locations").doc(id);
     var locationData;
     var gotInfo = location.get().then(function(doc) {
