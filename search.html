@@ -101,12 +101,13 @@
                     <option value="West Virginia">West Virginia</option>
                     <option value="Wisconsin">Wisconsin</option>
                     <option value="Wyoming">Wyoming</option>
-                </select><input type="number" name="zipcode" placeholder="Zip Code" style="margin-right: 0px;" id="zipcode"/>
+                </select><input type="number" name="zipcode" placeholder="Zip Code" style="margin-right: 0px;" id="zipcode"/><input type="text" name="other" placeholder="Other Info (County, Country, etc.)" id="other" style="width: 100%;"/>
                 <div style="height: 5px; width: 100%"></div>
-                <input type="button" onclick="AlgoliaSearch();" value="Submit" class="big-button"/>
+                <input type="button" onclick="searchWithAlgolia();" value="Search with Algolia" class="big-button"/>
                 <input type="reset" class="big-button"/>
             </form>
             <hr />
+            <div id="AlgoliaSearchResults">Click "Search with Algolia" to start...</div>
         </div>
     </div>
     <div include-html="../footer.html"></div>
@@ -115,7 +116,6 @@
     <script>
         includeHTML();
         indexData();
-        searchAddress();
     </script>
 </footer>
 </html>

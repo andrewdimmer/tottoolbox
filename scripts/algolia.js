@@ -73,14 +73,94 @@ function indexData() {
     }, function(error) {console.log(error);});
 }
 
-function searchAddress() {
+function searchWithAlgolia() {
     // only query string
+    var queryString = document.forms["AlgoliaSearch"].elements["street"].value + " ";
+    queryString += document.forms["AlgoliaSearch"].elements["city"].value + " ";
+    queryString += document.forms["AlgoliaSearch"].elements["state"].value + " ";
+    queryString += document.forms["AlgoliaSearch"].elements["zipcode"].value + " ";
+    queryString += document.forms["AlgoliaSearch"].elements["other"].value;
+    console.log(queryString);
     index.search({
-        query: 'Risman'
+        query: queryString
     },
     function searchDone(err, content) {
         if (err) throw err;
 
         console.log("Results:", content.hits);
+        
+        var results = content.hits;
+        document.getElementById("AlgoliaSearchResults").innerHTML = "";
+        for (var i = 0; i < results.length; i++) {
+            document.getElementById("AlgoliaSearchResults").innerHTML += getResultsPannel(results[i]);
+        }
     });
+}
+
+function getResultsPannel(data) {
+    var searchResults = '<div class="AlgoliaResults">';
+    searchResults += "<h3>" + data.address.Label + "</h3>";
+    searchResults += "<h4>Best Treats</h4><p>" + getBestInfo(data) + "</p>";
+    searchResults += "<h4>Current Treats</h4><p>" + getCurrentInfo(data) + "</p>";
+    return searchResults;
+}
+
+function getBestInfo(best) {
+    var returnString = "";
+    if (best.highest.level == 0) {
+        returnString = "Nobody was home!";
+    } else {
+        if (best.highest.level == 4) {
+            returnString = "Offered Chocolate";
+        } else if (best.highest.level == 3) {
+            returnString = "Offered Candy";
+        } else if (best.highest.level == 2) {
+            returnString = "Offered Food";
+        } else if (best.highest.level == 1) {
+            returnString = "Offered Other Treats";
+        }
+        if (best.highest.king) {
+            returnString += " (King Sized)";
+        } else if (best.highest.teal) {
+            returnString += "<br />Was a Teal Pumkin House";
+        }
+    }
+    return returnString;
+}
+
+function getCurrentInfo(current) {
+    var returnString = "";
+    if (!current.candy[0].home) {
+        returnString = "Nobody is currently home!";
+    } else {
+        var count = 0;
+        returnString += "Is Offering: "
+        if (current.candy[0].chocolate) {
+            returnString += "Chocolate";
+            count++;
+        } else if (current.candy[0].candy) {
+            if (count > 0) {
+                returnString += "; ";
+            }
+            returnString += "Candy";
+            count++;
+        } else if (current.candy[0].food) {
+            if (count > 0) {
+                returnString += "; ";
+            }
+            returnString += "Food";
+            count++;
+        } else if (current.candy[0].other) {
+            if (count > 0) {
+                returnString += "; ";
+            }
+            returnString += "Other Treats";
+        }
+        if (current.candy[0].king) {
+            returnString += " (King Sized)";
+        } else if (current.candy[0].teal) {
+            returnString += "<br />Is a Teal Pumkin House";
+        }
+    }
+    return returnString;
 }
