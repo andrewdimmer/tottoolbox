@@ -94,6 +94,9 @@ function searchWithAlgolia() {
         for (var i = 0; i < results.length; i++) {
             document.getElementById("AlgoliaSearchResults").innerHTML += getResultsPannel(results[i]);
         }
+        if (results.length == 0) {
+            document.getElementById("AlgoliaSearchResults").innerHTML = "<p>No results found.</p>"
+        }
     });
 }
 
