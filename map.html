@@ -46,7 +46,131 @@
     <div id="filterContainerSuper"  style="display: none;">
         <div class="card wrapper-uniq">
             <div class="card-body internal-body-uniq">
-                <div include-html="../filterform.html"></div>
+                <form name="filter">
+                    <h1>Filter Map Results</h1>
+                    <h2>Chocolate</h2>
+                    <label class="container form-text">
+                        <input type="radio" name="chocolate" value="T">
+                        Must have chocolate
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="chocolate" value="N" checked>
+                        Do not filter by whether or not a house has chocolate
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="chocolate" value="F">
+                        Must not have chocolate candy
+                        <span class="radiobutton"></span>
+                    </label>
+
+                    <h2>Candy (gummy candy, hard candy, etc.)</h2>
+                    <label class="container form-text">
+                        <input type="radio" name="candy" value="T">
+                        Must have candy
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="candy" value="N" checked>
+                        Do not filter by whether or not a house has candy
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="candy" value="F">
+                        Must not have candy
+                        <span class="radiobutton"></span>
+                    </label>
+
+                    <h2>Food (pretzels, chips, fruits, etc.)</h2>
+                    <label class="container form-text">
+                        <input type="radio" name="food" value="T">
+                        Must have food
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="food" value="N" checked>
+                        Do not filter by whether or not a house has food
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="food" value="F">
+                        Must not have food
+                        <span class="radiobutton"></span>
+                    </label>
+
+                    <h2>Other Treats</h2>
+                    <label class="container form-text">
+                        <input type="radio" name="other" value="T">
+                        Must have other treats
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="other" value="N" checked>
+                        Do not filter by whether or not a house has other treats
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="other" value="F">
+                        Must not have other treats
+                        <span class="radiobutton"></span>
+                    </label>
+
+                    <h2>Is Home</h2>
+                    <label class="container form-text">
+                        <input type="radio" name="home" value="T">
+                        Must be home
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="home" value="N" checked>
+                        Do not filter by whether or not a house is home
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="home" value="F">
+                        Must not be home
+                        <span class="radiobutton"></span>
+                    </label>
+
+                    <h2>King Sized</h2>
+                    <label class="container form-text">
+                        <input type="radio" name="king" value="T">
+                        Must have king sized
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="king" value="N" checked>
+                        Do not filter by whether or not a house has king sized
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name="king" value="F">
+                        Must not have king sized
+                        <span class="radiobutton"></span>
+                    </label>
+
+                    <h2>Teal Pumpkin House</h2>
+                    <label class="container form-text">
+                        <input type="radio" name=teal value="T">
+                        Must be a teal pumpkin house
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name=teal value="N" checked>
+                        Do not filter by whether or not a house is a teal pumpkin house
+                        <span class="radiobutton"></span>
+                    </label>
+                    <label class="container form-text">
+                        <input type="radio" name=teal value="F">
+                        Must not be a teal pumpkin house
+                        <span class="radiobutton"></span>
+                    </label>
+
+                    <input type="button" onclick="updateFilters();" value="Submit" class="big-button"/>
+                    <input type="reset" class="big-button"/>
+                    <input type="button" onclick="returnToMap();" value="Return to Map" class="big-button"/>
+                </form>
             </div>
         </div>
         <div include-html="../footer.html"></div>
